@@ -6,27 +6,26 @@ var score = 0;
 var paused = false;
 
 var ball = {
-  x: 250,
-  y: 25,
-  r: 15,
+  x: 300,   // starting point x
+  y: 25,    // starting point y
+  r: 15,    // radius
   collided: false,
   color: "black",
 
   reset: function () {
-    this.x = 250;
+    this.x = 300;
     this.y = 25;
     this.r = 15;
     this.collided = false;
   },
 
-  move_down: function () {
+  moveDown: function () {
     this.collide();
 
     if (this.collided) {
       this.y -= 2;
-    }
-    else {
-      if (!this.at_bottom()) {
+    } else {
+      if (!this.atBottom()) {
         this.y += dy;
       }
     }
@@ -34,13 +33,15 @@ var ball = {
 
   move: function (side) {
     var temp = side(this.x, dx);
-    if (temp < 490 && temp > 10) {
+    
+    if (temp < 590 && temp > 10) {
       this.x = temp;
     }
+    
     this.collide();
   },
 
-  is_dead: function () {
+  isDead: function () {
     if (this.y < 17) {
       return true;
     }
@@ -49,7 +50,7 @@ var ball = {
     }
   },
 
-  at_bottom: function () {
+  atBottom: function () {
     if (this.y > 565) {
       return true;
     }
@@ -69,12 +70,11 @@ var ball = {
   collide: function () {
     for (var i = 0; i < lines.length; i = i + 1) {
       var temp = this.y - lines[i].y;
-      if (temp >= -15 && temp <= 15 /* && this.x <= lines[i].shole && this.x >= lines[i].ehole */)
-      {
+      
+      if (temp >= -15 && temp <= 15) {
         if (this.x >= lines[i].shole && this.x <= lines[i].ehole) {
           this.collided = false;
-        }
-        else {
+        } else {
           this.collided = true;
         }
       }
@@ -96,19 +96,19 @@ function lineMaker(height) {
     x: 0,
     y: height,
     color: "black",
-    hole_width: 50,
+    holeWidth: 50,
     rand: Math.random(),
-    at_top: false,
+    atTop: false,
 
     init: function init() {
-      this.shole = this.rand * (600 - this.hole_width);
-      this.ehole = this.shole + this.hole_width;
+      this.shole = this.rand * (600 - this.holeWidth);
+      this.ehole = this.shole + this.holeWidth;
     },
 
     move: function move() {
       this.y -= 2;
       if (this.y <= 0) {
-        this.at_top = true;
+        this.atTop = true;
       }
     },
 
@@ -120,23 +120,25 @@ function lineMaker(height) {
 }
 
 function update() {
-  if (!ball.is_dead() && !paused) {
+  if (!ball.isDead() && !paused) {
     context.clearRect(0, 0, 600, 600);
+    
     for (var i = 0; i < lines.length; i = i + 1) {
       lines[i].move();
       lines[i].draw();
-      if (lines[i].at_top) {
+      
+      if (lines[i].atTop) {
         var temp = lines[i];
         lines[i] = lineMaker(600);
         lines[i].init();
       }
     }
-    ball.move_down();
+    
+    ball.moveDown();
     ball.draw();
     context.save();
     score += 10;
     context.fillText("Score: " + score, 10, 20);
-
   }
 }
 
