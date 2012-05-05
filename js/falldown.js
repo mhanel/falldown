@@ -5,6 +5,8 @@ var lines;
 var score = 0;
 var paused = false;
 
+
+// BALL
 var ball = {
   x: 300,   // starting point x
   y: 25,    // starting point y
@@ -82,6 +84,8 @@ var ball = {
   }
 };
 
+
+// LINES
 function drawLine(x1, y1, x2, y2, color) {
   context.strokeStyle = color;
   context.beginPath();
@@ -119,6 +123,20 @@ function lineMaker(height) {
   };
 }
 
+function initLines() {
+  lines = [];
+  lines[lines.length] = lineMaker(750);
+  lines[lines.length] = lineMaker(900);
+  lines[lines.length] = lineMaker(1050);
+  lines[lines.length] = lineMaker(1200);
+
+  for (var i = 0; i < lines.length; i = i + 1) {
+    lines[i].init();
+  }
+}
+
+
+// UPDATE
 function update() {
   if (!ball.isDead() && !paused) {
     context.clearRect(0, 0, 600, 600);
@@ -142,20 +160,9 @@ function update() {
   }
 }
 
-function initLines() {
-  lines = [];
-  lines[lines.length] = lineMaker(750);
-  lines[lines.length] = lineMaker(900);
-  lines[lines.length] = lineMaker(1050);
-  lines[lines.length] = lineMaker(1200);
 
-  for (var i = 0; i < lines.length; i = i + 1) {
-    lines[i].init();
-  }
-}
-
-// catch key events
-function onKeyDown(evt) {
+// KEYS
+function keyPressed(evt) {
   if (evt.keyCode === 39) {           // move right
     ball.move(function (x, y) {
       return x + y;
@@ -177,8 +184,10 @@ function onKeyDown(evt) {
   }
 }
 
-$(document).keydown(onKeyDown);
+$(document).keydown(keyPressed);
 
+
+// INIT
 function init() {
   var canvas = document.getElementById('canvas');
   context = canvas.getContext('2d');
@@ -188,7 +197,8 @@ function init() {
   return intervalId;
 }
 
-// start game
+
+// START
 (function() {
   init();
   update();
