@@ -1,0 +1,48 @@
+<!doctype html>  
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Falldown</title>
+
+  <meta name="description" content="A simple JavaScript falldown game.">
+  <meta name="author" content="Manuel Hanel">
+
+  <link rel="stylesheet" href="css/falldown.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+			<h1>Falldown</h1>
+    </header>
+
+    <div class="legend">
+      <ul>
+        <li><span class="key">&larr;</span> &hellip; move left</li>
+        <li><span class="key">&rarr;</span> &hellip; move right</li>
+        <li><span class="key">space</span> &hellip; pause game</li>
+        <li><span class="key">r</span> &hellip; restart game</li>
+      </ul>
+    </div>
+
+		<div id="main">
+			<canvas id="canvas" width="600" height="600">Please use a browser that supports HTML5s canvas tag</canvas>
+    </div>
+    
+    <footer>
+    </footer>
+  </div>
+
+  <!-- grab Google CDN's jQuery, fall back to local if offline -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+
+	<script src="js/falldown.js"></script>
+</body>
+</html>
